@@ -30,9 +30,9 @@ void proceedA(int N, int A, int B, int total){
     if(total > N) return;
     if(total == N) lastFound = true;
     
-    if(!reachable.contains(total)){
-        reachable.insert(total);
-    }
+    if(reachable.contains(total)) return;
+    
+    reachable.insert(total);
 
     proceedA(N, A, B, total);
     proceedB(N, A, B, total);
@@ -44,9 +44,9 @@ void proceedB(int N, int A, int B, int total){
     if(total > N) return;
     if(total == N) lastFound = true;
     
-    if(!reachable.contains(total)){
-        reachable.insert(total);
-    }
+    if(reachable.contains(total)) return;
+    
+    reachable.insert(total);
 
     proceedA(N, A, B, total);
     proceedB(N, A, B, total);
