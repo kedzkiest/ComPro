@@ -1,82 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+vector<pair<char, int>> Compress(string s);
+
 int main(void){
     string S, T;
-    
-    vector<char> S_duplicatedChar;
-    vector<char> T_duplicatedChar;
-    
     cin >> S >> T;
     
-    S_duplicatedChar.push_back(S.at(0));
-    T_duplicatedChar.push_back(T.at(0));
+    vector<pair<char, int>> compressedS, compressedT;
+    compressedS = Compress(S);
+    compressedT = Compress(T);
     
-    for(int i = 1; i < S.length(); i++){
-        if(S.at(i) == S.at(i-1)){
-            if(S_duplicatedChar.size() > 0){
-                if(S_duplicatedChar.at(S_duplicatedChar.size()-1) == S.at(i)){
-                    S_duplicatedChar.push_back('*');
-                    continue;
-                }
-                else if(S_duplicatedChar.at(S_duplicatedChar.size()-1) == '*'){
-                    continue;
-                }
-            }
-            
-            S_duplicatedChar.push_back(S.at(i));
-        }
-        S_duplicatedChar.push_back(S.at(i));
+    /* to confirm compression
+    for(int i = 0; i < compressedS.size(); i++){
+        cout << "first = " << compressedS.at(i).first << ", second = " << compressedS.at(i).second << endl;
     }
     
-    for(int i = 1; i < T.length(); i++){
-        if(T.at(i) == T.at(i-1)){
-            if(T_duplicatedChar.size() > 0){
-                if(T_duplicatedChar.at(T_duplicatedChar.size()-1) == T.at(i)){
-                    T_duplicatedChar.push_back('*');
-                    continue;
-                }
-                else if(T_duplicatedChar.at(T_duplicatedChar.size()-1) == '*'){
-                    continue;
-                }
-            }
-            
-            T_duplicatedChar.push_back(T.at(i));
-        }
-        T_duplicatedChar.push_back(T.at(i));
+    for(int i = 0; i < compressedT.size(); i++){
+        cout << "first = " << compressedT.at(i).first << ", second = " << compressedT.at(i).second << endl;
     }
-    
-    /*
-    for(int i = 0; i < S_duplicatedChar.size(); i++){
-        cout << S_duplicatedChar.at(i) << " ";
-    }
-    cout << endl;
-    for(int i = 0; i < T_duplicatedChar.size(); i++){
-        cout << T_duplicatedChar.at(i) << " ";
-    }
-    cout << endl;
     */
     
-    bool flag = true;
+    bool ans = true;
     
-    if(S_duplicatedChar.size() == T_duplicatedChar.size()){
-        for(int i = 0; i < T_duplicatedChar.size(); i++){
-            if(S_duplicatedChar.at(i) != T_duplicatedChar.at(i)){
-                flag = false;
-                break;
-            }
+    // judge possible or not
+    if(compressedS.size() != compressedT.size()){
+        
+    }
+}
+
+vector<pair<char, int>> Compress(string s){
+    vector<pair<char, int>> ans;
+    
+    ans.push_back(make_pair(s[0], 1));
+    
+    for(int i = 1; i < s.size(); i++){
+        if(s[i] == ans.at(ans.size()-1).first){
+            ans.at(ans.size()-1).second++;
+        }
+        else{
+            ans.push_back(make_pair(s[i], 1));
         }
     }
-    else if(S.size() > T.size()){
-        flag = false;
-    }
-    else{
-        flag = false;
-    }
     
-    if(flag){
-        cout << "Yes" << endl;
-    }
-    else{
-        cout << "No" << endl;
-    }
+    return ans;
 }
