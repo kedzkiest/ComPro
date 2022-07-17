@@ -25,7 +25,30 @@ int main(void){
     
     // judge possible or not
     if(compressedS.size() != compressedT.size()){
-        
+        ans = false;
+    }
+    else{
+        for(int i = 0; i < compressedS.size(); i++){
+            if(compressedS.at(i).first != compressedT.at(i).first){
+                ans = false;
+                break;
+            }
+            
+            if(compressedS.at(i).second != compressedT.at(i).second){
+                if(compressedS.at(i).second < compressedT.at(i).second && compressedS.at(i).second >= 2) continue;
+                else{
+                    ans = false;
+                    break;
+                }
+            }
+        }
+    }
+    
+    if(ans){
+        cout << "Yes" << endl;
+    }
+    else{
+        cout << "No" << endl;
     }
 }
 
