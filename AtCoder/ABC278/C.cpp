@@ -5,27 +5,21 @@ int main(void){
     int N, Q;
     cin >> N >> Q;
     
-    vector<set<int>> followList(N);
+    set<pair<int, int>> follows;
     for(int i = 0; i < Q; i++){
         int T, A, B;
         cin >> T >> A >> B;
         
         if(T == 1){
-            followList.at(A-1).insert(B-1);
+            follows.insert(make_pair(A, B));
         }
         
         if(T == 2){
-            followList.at(A-1).erase(B-1);
+            follows.erase({A, B});
         }
         
         if(T == 3){
-            if(followList.at(A-1).find(B-1) != followList.at(A-1).end() &&
-               followList.at(B-1).find(A-1) != followList.at(B-1).end()){
-                   cout << "Yes" << endl;
-               }
-               else{
-                   cout << "No" << endl;
-               }
+            cout << (follows.count({A, B}) && follows.count({B, A}) ? "Yes" : "No") << endl;
         }
     }
 }
